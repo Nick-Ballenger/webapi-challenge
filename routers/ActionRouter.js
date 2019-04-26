@@ -51,6 +51,58 @@ router.get("/", async (req, res) => {
     }
 });
 
+//Delete by ID
+router.delete("/:id", async (req, res) => {
+    const { id } = req.params;
+    
+    try {
+     
+        const action = await actionDB.get(id);
+     
+        if (!action) {
+        res.status(404).json({ message: "This is not the action you're looking for. Action not found." });
+      } 
+      else {
+        await actionsDb.remove(action.id);
+        res.json(action);
+      }
+    } 
+    
+    catch (err) {
+      res.status(500).json({
+        message: "Server error, couldn't Delete action."
+      });
+    }
+  });  
+
+
+//update by ID
+router.put("/:id", async (req, res) => {
+    
+    const { id } = req.params;
+   
+    const putAction = req.body;
+    
+    try {
+      const action = await actionDB.get(id);
+
+      if (!action) {
+        res.status(404).json({ message: "This is not the action you're looking for. Action not found." });
+      } 
+      
+      else {
+        await actionD .update(id, putAction);
+        res.json({ message: "Woo! Action updated" });
+      }
+    } 
+    
+    catch (err) {
+      res.status(500).json({
+        message: "Server error, couldn't update"
+      });
+    }
+  });
+
 
 
 
