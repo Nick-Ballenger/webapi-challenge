@@ -104,6 +104,27 @@ router.put("/:id", async (req, res) => {
     }
   });
 
+  // Get project actions by id
+router.get('/:id/actions', async (req, res) => {
+    try {
+
+        const project = await projectDB.getProjectActions(req.params.id);
+
+        if (project.length > 0) {
+            res.status(200).json(user);
+        } 
+        
+        else {
+            res.status(404).json({ message: "This is not action you're looking for. The action with the specified ID does not exist." });
+        }
+    } 
+    
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "The action information could not be retrieved." });
+    } 
+});
+
 
 
   module.exports = router; 
