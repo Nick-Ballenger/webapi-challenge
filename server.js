@@ -13,9 +13,9 @@ server.use(helmet());
 server.use(morgan('short'))
 server.use(express.json());
 
-server.use('/api/users', ProjectRouter);
+server.use('/api/projects', ProjectRouter);
 
-server.use('/api/posts', ActionRouter);
+server.use('/api/actions', ActionRouter);
 
 
 server.get('/', async (req, res) => {
